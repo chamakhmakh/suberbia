@@ -11,6 +11,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "text_and_image": {
+              "type": "SharedSlice"
+            },
+            "product_grid": {
+              "type": "SharedSlice"
+            },
             "hero": {
               "type": "SharedSlice"
             }
@@ -46,7 +52,10 @@
       },
       "slices1": {
         "type": "Slices",
-        "fieldset": "Slice Zone"
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
       }
     }
   }
