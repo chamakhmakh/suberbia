@@ -1,11 +1,17 @@
 "use client";
 import * as THREE from "three";
 import { Skateboard } from "@/components/Skateboard";
-import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
+import {
+  ContactShadows,
+  Environment,
+  Html,
+  OrbitControls,
+} from "@react-three/drei";
 import { Canvas, ThreeEvent, useThree } from "@react-three/fiber";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { HotSpot } from "./HotSpot";
+import { WavyPaths } from "./WavyPaths";
 
 const INITIAL_CAMERA_POSITION = [1.5, 1, 1.4] as const;
 
@@ -58,6 +64,26 @@ function Scene({
   });
 
   const { camera } = useThree();
+
+  useEffect(() => {
+    if (!containerRef.current || !originRef.current) return;
+
+    gsap.to(containerRef.current.position, {
+      x: 0.4,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+
+    gsap.to(originRef.current.rotation, {
+      y: Math.PI / 64,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+  }, []);
 
   useEffect(() => {
     camera.lookAt(new THREE.Vector3(-0.2, 0.15, 0));
@@ -252,6 +278,21 @@ function Scene({
         </group>
       </group>
       <ContactShadows opacity={0.6} position={[0, -0.08, 0]} />
+
+      <group
+        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+        position={[0, -0.09, -0.5]}
+        scale={[0.2, 0.2, 0.2]}
+      >
+        <Html
+          wrapperClass="pointer-evetns-none"
+          transform
+          zIndexRange={[1, 0]}
+          occlude="blending"
+        >
+          <WavyPaths />
+        </Html>
+      </group>
     </group>
   );
 }
