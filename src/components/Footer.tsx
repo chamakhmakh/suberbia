@@ -37,7 +37,7 @@ export async function Footer() {
         <Logo className="pointer-events-none relative h-20 mix-blend-exclusion md:h-28" />
       </div>
 
-      <Bounded>
+      <Bounded as="nav">
         {/* List of links */}
         <ul className="flex flex-wrap justify-center gap-8 ~text-lg/xl">
           {settings.data.navigation.map((item) => (
